@@ -47,11 +47,15 @@ All colors MUST be HSL.
     --gradient-warm: linear-gradient(135deg, hsl(40, 85%, 51%), hsl(30, 60%, 15%));
     --gradient-steam: linear-gradient(180deg, transparent, hsl(40, 30%, 95%));
     --gradient-hero: linear-gradient(135deg, hsl(40, 85%, 51%, 0.15), hsl(30, 60%, 15%, 0.15));
+    --gradient-radial: radial-gradient(circle at 50% 50%, hsl(40, 90%, 65%, 0.3), transparent 70%);
+    --gradient-mesh: linear-gradient(135deg, hsl(40, 85%, 51%, 0.1) 0%, hsl(100, 55%, 28%, 0.1) 50%, hsl(30, 60%, 15%, 0.1) 100%);
 
     /* Shadows */
     --shadow-soft: 0 10px 40px -10px hsl(40, 50%, 30%, 0.2);
     --shadow-glow: 0 0 30px hsl(40, 85%, 51%, 0.3);
     --shadow-card: 0 4px 20px hsl(30, 20%, 20%, 0.1);
+    --shadow-deep: 0 20px 60px -15px hsl(30, 60%, 15%, 0.4);
+    --shadow-inner: inset 0 2px 10px hsl(0, 0%, 0%, 0.1);
 
     /* Animations */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -125,6 +129,33 @@ All colors MUST be HSL.
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes rotate-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce-smooth {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.05);
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -158,5 +189,25 @@ All colors MUST be HSL.
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .shimmer-effect {
+    background: linear-gradient(90deg, transparent, hsl(40, 90%, 65%, 0.3), transparent);
+    background-size: 1000px 100%;
+    animation: shimmer 3s infinite;
+  }
+
+  .rotate-slow {
+    animation: rotate-slow 20s linear infinite;
+  }
+
+  .bounce-smooth {
+    animation: bounce-smooth 3s ease-in-out infinite;
+  }
+
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 }

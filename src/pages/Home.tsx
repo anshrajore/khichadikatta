@@ -72,11 +72,22 @@ const Home = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.1, duration: 0.8 }}
+              className="mb-6"
+            >
+              <span className="inline-block px-6 py-2 bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full text-primary-foreground font-script text-xl md:text-2xl shadow-lg">
+                Est. 2024 • Nashik's Finest
+              </span>
+            </motion.div>
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-5xl md:text-7xl font-heading font-bold text-white mb-6 drop-shadow-2xl"
+              className="text-5xl md:text-7xl lg:text-8xl font-display font-bold text-white mb-6 drop-shadow-2xl leading-tight"
             >
               {t("hero.tagline")}
             </motion.h1>
@@ -106,22 +117,36 @@ const Home = () => {
               className="flex flex-wrap gap-4 justify-center"
             >
               <Link to="/menu">
-                <Button size="lg" className="text-lg group shadow-2xl">
+                <Button size="lg" className="text-lg group shadow-2xl hover:shadow-primary/50 transition-all duration-300 animate-pulse-glow">
                   {t("hero.cta1")}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button size="lg" variant="outline" className="text-lg bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 shadow-2xl">
+                <Button size="lg" variant="outline" className="text-lg bg-white/10 backdrop-blur-sm border-white/30 text-white hover:bg-white/20 shadow-2xl hover:scale-105 transition-all duration-300">
                   {t("hero.cta2")}
                 </Button>
               </Link>
               <Link to="/franchise">
-                <Button size="lg" variant="secondary" className="text-lg shadow-2xl">
+                <Button size="lg" variant="secondary" className="text-lg shadow-2xl hover:shadow-accent/50 transition-all duration-300">
                   {t("hero.cta3")}
                 </Button>
               </Link>
             </motion.div>
+
+            {/* Decorative Elements */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.6 }}
+              transition={{ delay: 1.2, duration: 1 }}
+              className="absolute top-10 right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"
+            />
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              transition={{ delay: 1.4, duration: 1 }}
+              className="absolute bottom-20 left-10 w-40 h-40 bg-accent/20 rounded-full blur-3xl"
+            />
           </motion.div>
         </div>
 
@@ -152,9 +177,10 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-secondary mb-4">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-display font-bold text-secondary mb-4">
               {t("franchise.whyInvest")}
             </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary via-accent to-primary mx-auto rounded-full shimmer-effect" />
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -166,15 +192,20 @@ const Home = () => {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2, duration: 0.6 }}
               >
-                <Card className="hover:shadow-xl transition-all duration-300 border-2 hover:border-primary/50 h-full">
-                  <CardContent className="p-8 text-center">
-                    <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <feature.icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-heading font-semibold mb-3 text-secondary">
+                <Card className="group hover:shadow-2xl transition-all duration-500 border-2 hover:border-primary/50 h-full relative overflow-hidden hover:-translate-y-2">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <CardContent className="p-8 text-center relative z-10">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                      className="w-20 h-20 bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:shadow-primary/30"
+                    >
+                      <feature.icon className="h-10 w-10 text-primary" />
+                    </motion.div>
+                    <h3 className="text-xl font-display font-semibold mb-3 text-secondary group-hover:text-primary transition-colors">
                       {feature.title}
                     </h3>
-                    <p className="text-muted-foreground">
+                    <p className="text-muted-foreground leading-relaxed">
                       {feature.description}
                     </p>
                   </CardContent>
