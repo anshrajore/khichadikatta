@@ -100,7 +100,7 @@ const Franchise = () => {
     setIsSubmitting(true);
 
     // Replace this URL with your Google Apps Script Web App URL
-    const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxQ1S4qomiRTbFTZ--86IBgeT5kAGJasRskpCwR-8HBtIgQgLY1vOkIV7K4D1Glbebw/exec";
 
     try {
       const response = await fetch(GOOGLE_SCRIPT_URL, {
