@@ -17,6 +17,7 @@ import { toast } from "sonner";
 
 const Franchise = () => {
   const { t, i18n } = useTranslation();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -94,12 +95,35 @@ const Franchise = () => {
 
   const lang = i18n.language as 'en' | 'hi' | 'mr';
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Thank you for your interest! 🎉", {
-      description: "We'll get back to you within 24 hours.",
-    });
-    setFormData({ name: "", email: "", phone: "", city: "", message: "" });
+    setIsSubmitting(true);
+
+    // Replace this URL with your Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+
+    try {
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      toast.success("Thank you for your interest! 🎉", {
+        description: "We'll get back to you within 24 hours.",
+      });
+      setFormData({ name: "", email: "", phone: "", city: "", message: "" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Something went wrong", {
+        description: "Please try again or contact us directly.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -285,8 +309,8 @@ const Franchise = () => {
                       rows={3}
                     />
                   </div>
-                  <Button type="submit" className="w-full" size="lg">
-                    Submit Inquiry
+                  <Button type="submit" className="w-full" size="lg" disabled={isSubmitting}>
+                    {isSubmitting ? "Submitting..." : "Submit Inquiry"}
                   </Button>
                 </form>
               </CardContent>
